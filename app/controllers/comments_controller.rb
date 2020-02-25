@@ -28,6 +28,7 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
+        MentionNotifier.call(@comment.id)
         format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
         format.json { render :show, status: :created, location: @comment }
       else
